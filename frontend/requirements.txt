@@ -1,0 +1,5 @@
+react-markdown remark-gfm
+tailwindcss
+@tailwindcss/typography
+reduxtoolkit
+react-redux
