@@ -1,82 +1,91 @@
 <p align="center">
-  <img src="assets/logo.png" alt="Utkarsh-NexusAI Logo" width="200" />
+  <img src="assets/logo.svg" alt="Utkarsh AI Logo" width="220" />
 </p>
 
-<h1 align="center">Utkarsh-NexusAI</h1>
+<h1 align="center">Utkarsh AI - Intelligent Large Language Model Suite</h1>
 
 <p align="center">
-  <strong>A premium, modern AI Chatbot experience built with high-performance technologies.</strong>
+  <strong>A high-performance, professional-grade AI Chatbot architecture designed for deep intelligence and seamless hardware integration.</strong>
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT" />
-  <img src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" alt="Maintained: Yes" />
-  <img src="https://img.shields.io/badge/Docker-ready-blue.svg" alt="Docker: Ready" />
+  <img src="https://img.shields.io/badge/Architecture-FastAPI%20%2b%20React-blueviolet.svg" alt="Architecture" />
+  <img src="https://img.shields.io/badge/LLM-LangChain%20Engine-orange.svg" alt="LLM Engine" />
+  <img src="https://img.shields.io/badge/Deployment-Docker%20Native-blue.svg" alt="Docker Ready" />
+  <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License" />
 </p>
 
 ---
 
 ## 🚀 Overview
 
-**Utkarsh-NexusAI** is a sophisticated chatbot application designed for visual elegance and seamless performance. It features a robust FastAPI backend, a stunning React (Vite) frontend with glassmorphism design, and deep integration with LLMs via LangChain.
+**Utkarsh AI** is more than just a chatbot; it is a meticulously engineered LLM platform. Built with a **FastAPI** high-density backend and a **React/Vite** glassmorphism frontend, it delivers an ultra-responsive, premium user experience mapped against local and remote hardware acceleration.
 
-## ✨ Key Features
+## 🔍 Core Intelligence Features
 
-- **Premium UI**: Modern dark mode with glassmorphism, smooth animations (Framer Motion), and responsive layouts.
-- **Secure Authentication**: JWT-based login and signup system.
-- **Persistent Chat History**: Securely store and retrieve user conversations using MySQL.
-- **LLM Integration**: Flexible backend powered by LangChain for high-quality AI responses.
-- **Dockerized Ready**: Deploy anywhere in seconds using Docker and Docker Compose.
+### 🧠 Advanced LLM Orchestration
+Go beyond basic prompting. Utkarsh AI utilizes **LangChain** and custom Pydantic-aware models to perform:
+- **System Instruction Injection**: Forces consistent, professional behavioral profiles.
+- **Parametric Chat Dynamics**: Real-time management of temperature, top-p, and context window.
+- **Memory Subsystem**: Persistent conversation threading stored via a highly-indexed MySQL architecture.
 
-## 🛠 Tech Stack
+### 🎨 Premium Visual Engine
+The UI isn't just a skin—it's a performance-first interface built for speed:
+- **Glassmorphism Design**: Minimalist, sleek aesthetic with ultra-smooth Framer Motion transitions.
+- **High-Density Typography**: Optimized for long-form reading and code snippet visualization.
+- **Dynamic Workspaces**: Collapsible sidebar architecture and auto-saving conversation states.
 
-- **Frontend**: [React](https://reactjs.org/), [Vite](https://vitejs.dev/), [Tailwind CSS](https://tailwindcss.com/), [Framer Motion](https://www.framer.com/motion/), [Lucide React](https://lucide.dev/).
-- **Backend**: [FastAPI](https://fastapi.tiangolo.com/), [SQLAlchemy](https://www.sqlalchemy.org/), [MySQL](https://www.mysql.com/), [LangChain](https://www.langchain.com/).
-- **DevOps**: [Docker](https://www.docker.com/), [Docker Compose](https://docs.docker.com/compose/).
+## 🛠 High-Performance Stack
 
-## ⚙️ Quick Start
+| Category | Component | Technical Detail |
+| :--- | :--- | :--- |
+| **Frontend** | React 19 + Vite | State-managed via Redux Toolkit |
+| **Backend** | FastAPI (Standard) | Uvicorn-driven async I/O |
+| **Engine** | LangChain | Multi-provider support (OpenAI, HuggingFace, Groq) |
+| **Database** | MySQL 8.0 | SQLAlchemy ORM for relational persistence |
+| **Container** | Docker Compose | Orchestrated microservices (Front/Back/DB) |
 
-### 1. Prerequisites
-- Python 3.11+
-- Node.js 20+
-- Docker & Docker Compose (optional, for deployment)
+## ⚙️ Operation & Deployment
 
-### 2. Local Setup
+### 1. Local Forensic Setup
 
-**Backend:**
+**Backend Orchestration:**
 ```bash
 cd backend
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+.\venv\Scripts\activate
 pip install -r requirements.txt
-uvicorn main:app --reload
+uvicorn main:app --host 0.0.0.0 --port 8000
 ```
 
-**Frontend:**
+**Frontend Rendering:**
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
 
-## 🐳 Deployment with Docker
-
-Deploy the full stack (Frontend, Backend, and Database) with a single command:
+### 2. Standardized Docker Deployment
+Utkarsh AI is native to the containerized ecosystem. Run the full forensic stack with zero configuration:
 
 ```bash
 docker-compose up -d --build
 ```
 
-Access the application at:
-- **Frontend**: `http://localhost:80`
-- **Backend API**: `http://localhost:8000`
+- **Frontend Interface**: `http://localhost:80`
+- **Backend API Layer**: `http://localhost:8000`
+
+## 📊 Live Metrics & Logging
+Utkarsh AI produces a high-density logs stream for performance analysis:
+- **TTFT (Time to First Token)**: Sub-second latency on optimized endpoints.
+- **Memory Bandwidth**: Optimized data movement between the LLM engine and the DB layer.
+- **Inference Density**: High character-per-second throughput.
 
 ## 📜 License
-
-Distributed under the **MIT License**. See `LICENSE` for more information.
+This project is licensed under the **MIT License** - see the `LICENSE` file for details.
 
 ---
 
 <p align="center">
-  Built with ❤️ by Utkarsh
+  Built for the High-Performance AI Engineering Community by <strong>Utkarsh</strong>
 </p>
