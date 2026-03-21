@@ -11,7 +11,7 @@ export default function ChatSidebar({ isOpen, onNewChat, onLoadChat, onClose, re
   useEffect(() => {
     if (token && (isOpen || refreshTrigger > 0)) {
       setLoading(true);
-      fetch(`http://localhost:8000/chathistory`, {
+      fetch(`https://utkarsh-ai-chatbot.onrender.com/chathistory`, {
         headers: {
           "Authorization": `Bearer ${token}`
         }

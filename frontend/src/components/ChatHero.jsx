@@ -95,7 +95,7 @@ const ChatHero = forwardRef(({ onSaveSuccess }, ref) => {
 
     if (token) {
         try {
-            const initialSaveRes = await fetch("http://localhost:8000/api/save-conversation", {
+            const initialSaveRes = await fetch("https://utkarsh-ai-chatbot.onrender.com/api/save-conversation", {
               method: "POST",
               headers: { 
                 "Content-Type": "application/json",
@@ -120,7 +120,7 @@ const ChatHero = forwardRef(({ onSaveSuccess }, ref) => {
     }
 
     try {
-      const response = await fetch("http://localhost:8000/chat", {
+      const response = await fetch("https://utkarsh-ai-chatbot.onrender.com/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ messages: newMessages }),
@@ -133,7 +133,7 @@ const ChatHero = forwardRef(({ onSaveSuccess }, ref) => {
       setMessages(updatedMessages);
 
       if (token) {
-        const finalSaveRes = await fetch("http://localhost:8000/api/save-conversation", {
+        const finalSaveRes = await fetch("https://utkarsh-ai-chatbot.onrender.com/api/save-conversation", {
           method: "POST",
           headers: { 
             "Content-Type": "application/json",

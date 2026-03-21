@@ -16,7 +16,8 @@ DB_USER = os.getenv("DB_USER")
 DB_PASSWORD = os.getenv("DB_PASSWORD")
 
 # Create database URL
-DATABASE_URL = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+DATABASE_URL = "mysql+pymysql://root:EsViUzxhSjaLZeZPtlePimkVhUNigccH@mysql.railway.internal:3306/railway"
+
 
 # Create engine
 engine = create_engine(DATABASE_URL, echo=False)

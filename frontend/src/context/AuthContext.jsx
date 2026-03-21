@@ -11,7 +11,7 @@ export function AuthProvider({ children }) {
     const fetchUser = async () => {
       if (token) {
         try {
-          const res = await fetch("http://localhost:8000/api/me", {
+          const res = await fetch("https://utkarsh-ai-chatbot.onrender.com/api/me", {
             headers: { Authorization: `Bearer ${token}` }
           });
           if (res.ok) {
@@ -33,7 +33,7 @@ export function AuthProvider({ children }) {
 
   const login = async (email, password) => {
     try {
-      const response = await fetch("http://localhost:8000/api/login", {
+      const response = await fetch("https://utkarsh-ai-chatbot.onrender.com/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -57,7 +57,7 @@ export function AuthProvider({ children }) {
 
   const signup = async (name, email, password) => {
     try {
-      const response = await fetch("http://localhost:8000/api/signup", {
+      const response = await fetch("https://utkarsh-ai-chatbot.onrender.com/api/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
