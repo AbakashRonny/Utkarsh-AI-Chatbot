@@ -20,20 +20,13 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/login")
 
 def verify_password(plain_password, hashed_password):
-    # Bcrypt has a 72-byte limit. We truncate to 72 bytes safely.
-    pwd_bytes = plain_password.encode('utf-8')[:72]
-    safe_pwd = pwd_bytes.decode('utf-8', errors='ignore')
-    # Extra safety: character truncation just in case passlib checks len()
-    if len(safe_pwd) > 72: safe_pwd = safe_pwd[:72]
+    # Bcrypt has a 72-byte limit. We truncate to 72 characters safely.
+    safe_pwd = plain_password[:72]
     return pwd_context.verify(safe_pwd, hashed_password)
 
 def get_password_hash(password):
-    # Bcrypt has a 72-byte limit.
-    pwd_bytes = password.encode('utf-8')[:72]
-    safe_pwd = pwd_bytes.decode('utf-8', errors='ignore')
-    # Extra safety: character truncation just in case passlib checks len()
-    if len(safe_pwd) > 72: safe_pwd = safe_pwd[:72]
-    print(f">>> DEBUG: Hashing password ({len(safe_pwd.encode('utf-8'))} bytes)")
+    # Bcrypt has a 72-byte limit. The error suggests truncating via string slicing.
+    safe_pwd = password[:72]
     return pwd_context.hash(safe_pwd)
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
