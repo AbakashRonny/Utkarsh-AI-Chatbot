@@ -63,7 +63,7 @@ def signup(user_data: UserCreate, db: Session = Depends(get_db)):
         import traceback
         print("!!! SIGNUP ERROR:")
         traceback.print_exc()
-        raise HTTPException(status_code=500, detail=f"Signup error: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Signup error (v2.0-FIX): {str(e)}")
 
 
 
