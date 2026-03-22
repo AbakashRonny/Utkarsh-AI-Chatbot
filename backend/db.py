@@ -16,10 +16,14 @@ DB_USER = os.getenv("DB_USER")
 DB_PASSWORD = os.getenv("DB_PASSWORD")
 
 # Construct database URL from environment variables
-if DB_USER and DB_PASSWORD and DB_HOST and DB_PORT and DB_NAME:
+# Note: On Render, 127.0.0.1 will fail because the database is on Railway.
+is_local_host = DB_HOST in ["127.0.0.1", "localhost"]
+is_on_render = os.getenv("RENDER") is not None
+
+if DB_USER and DB_PASSWORD and DB_HOST and DB_PORT and DB_NAME and (not is_on_render or not is_local_host):
     DATABASE_URL = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 else:
-    # Fallback to the Railway proxy URL if specific components are missing
+    # Use the public Railway URL which works from anywhere (Render/Local)
     DATABASE_URL = os.getenv("DATABASE_URL", "mysql+pymysql://root:EsViUzxhSjaLZeZPtlePimkVhUNigccH@turntable.proxy.rlwy.net:45191/railway")
 
 # Create engine
