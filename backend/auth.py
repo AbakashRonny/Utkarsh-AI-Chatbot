@@ -22,20 +22,14 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/login")
 
 def verify_password(plain_password, hashed_password):
     # Pre-hash to safely bypass bcrypt 72-byte limit
-    sha_hash = hashlib.sha256(plain_password.encode('utf-8')).hexdigest()
+    # We use a 50-char slice to be extra safe against any environment-specific behavior
+    sha_hash = hashlib.sha256(plain_password.encode('utf-8')).hexdigest()[:50]
     return pwd_context.verify(sha_hash, hashed_password)
 
 def get_password_hash(password):
     # Pre-hash to safely bypass bcrypt 72-byte limit
-    print(f">>> DEBUG: Original password length: {len(password)}")
-    sha_hash = hashlib.sha256(password.encode('utf-8')).hexdigest()
-    print(f">>> DEBUG: Processed digest length: {len(sha_hash)}")
-    
-    # Final check before passing to passlib
-    if len(sha_hash) > 72:
-        print(">>> DEBUG ERROR: Digest exceeds 72 bytes!")
-        return pwd_context.hash(sha_hash[:72])
-        
+    # We use a 50-char slice to be extra safe against any environment-specific behavior
+    sha_hash = hashlib.sha256(password.encode('utf-8')).hexdigest()[:50]
     return pwd_context.hash(sha_hash)
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
