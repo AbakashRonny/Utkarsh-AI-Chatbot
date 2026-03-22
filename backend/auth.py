@@ -8,6 +8,7 @@ from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
 
+import hashlib
 from db import get_db, User
 from model import TokenData
 
@@ -20,14 +21,14 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/login")
 
 def verify_password(plain_password, hashed_password):
-    # Bcrypt has a 72-byte limit. We truncate to 72 characters safely.
-    safe_pwd = plain_password[:72]
-    return pwd_context.verify(safe_pwd, hashed_password)
+    # Pre-hash to safely bypass bcrypt 72-byte limit
+    sha_hash = hashlib.sha256(plain_password.encode('utf-8')).hexdigest()
+    return pwd_context.verify(sha_hash, hashed_password)
 
 def get_password_hash(password):
-    # Bcrypt has a 72-byte limit. The error suggests truncating via string slicing.
-    safe_pwd = password[:72]
-    return pwd_context.hash(safe_pwd)
+    # Pre-hash to safely bypass bcrypt 72-byte limit
+    sha_hash = hashlib.sha256(password.encode('utf-8')).hexdigest()
+    return pwd_context.hash(sha_hash)
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     to_encode = data.copy()

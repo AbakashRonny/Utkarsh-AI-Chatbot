@@ -15,8 +15,12 @@ DB_PORT = os.getenv("DB_PORT")
 DB_USER = os.getenv("DB_USER")
 DB_PASSWORD = os.getenv("DB_PASSWORD")
 
-# Create database URL
-DATABASE_URL = "mysql+pymysql://root:EsViUzxhSjaLZeZPtlePimkVhUNigccH@turntable.proxy.rlwy.net:45191/railway"
+# Construct database URL from environment variables
+if DB_USER and DB_PASSWORD and DB_HOST and DB_PORT and DB_NAME:
+    DATABASE_URL = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+else:
+    # Fallback to the Railway proxy URL if specific components are missing
+    DATABASE_URL = os.getenv("DATABASE_URL", "mysql+pymysql://root:EsViUzxhSjaLZeZPtlePimkVhUNigccH@turntable.proxy.rlwy.net:45191/railway")
 
 # Create engine
 engine = create_engine(DATABASE_URL, echo=False)

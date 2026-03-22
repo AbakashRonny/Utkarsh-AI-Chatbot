@@ -42,9 +42,8 @@ def signup(user_data: UserCreate, db: Session = Depends(get_db)):
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="An account with this email already exists."
             )
-        # Forced truncation to satisfy bcrypt 72-byte limit as a fail-safe
-        safe_password = user_data.password[:72]
-        hashed_password = get_password_hash(safe_password)
+        # Secure pre-hashing is handled in get_password_hash
+        hashed_password = get_password_hash(user_data.password)
         new_user = User(
             name=user_data.name,
             email=user_data.email,
@@ -62,6 +61,7 @@ def signup(user_data: UserCreate, db: Session = Depends(get_db)):
         raise
     except Exception as e:
         import traceback
+        print("!!! SIGNUP ERROR:")
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=f"Signup error: {str(e)}")
 
@@ -120,8 +120,16 @@ Rules:
         for msg in request.messages
     ]
 
+    # Langfuse callback handler for prompt tracking
+    from langfuse.callback import CallbackHandler
+    langfuse_handler = CallbackHandler(
+        secret_key=os.getenv("LANGFUSE_SECRET_KEY"),
+        public_key=os.getenv("LANGFUSE_PUBLIC_KEY"),
+        host=os.getenv("LANGFUSE_BASE_URL", "https://cloud.langfuse.com")
+    )
+
     # Pass full conversation to model
-    response = llm.invoke(formatted_messages)
+    response = llm.invoke(formatted_messages, config={"callbacks": [langfuse_handler]})
 
     return {"reply": response.content}
 
