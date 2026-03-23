@@ -52,7 +52,7 @@ export default function App() {
   }
 
   return (
-    <div className="flex h-screen bg-[#0b0d14] text-gray-100 overflow-hidden font-sans selection:bg-indigo-500/30">
+    <div className="flex h-[100dvh] bg-[#0b0d14] text-gray-100 overflow-hidden font-sans selection:bg-indigo-500/30">
       
       {/* Sidebar Component */}
       <AnimatePresence mode="wait">
@@ -76,11 +76,11 @@ export default function App() {
       </AnimatePresence>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col relative min-w-0 bg-[#0b0d14]">
+      <div className="flex-1 flex flex-col relative min-w-0 bg-[#0b0d14] h-full">
         
         {/* Top Header Bar */}
-        <header className="h-16 flex items-center justify-between px-4 sm:px-6 bg-[#0f111a]/50 backdrop-blur-xl border-b border-white/5 z-20">
-          <div className="flex items-center gap-4">
+        <header className="h-16 shrink-0 flex items-center justify-between px-4 sm:px-6 bg-[#0f111a]/50 backdrop-blur-xl border-b border-white/5 z-20">
+          <div className="flex items-center gap-2 sm:gap-4">
               <button
                 onClick={toggleSidebar}
                 className={`p-2 rounded-lg transition-all border border-white/5 group ${sidebarOpen ? 'bg-indigo-600/10 text-indigo-400' : 'bg-transparent text-gray-400 hover:text-white'}`}
@@ -88,20 +88,20 @@ export default function App() {
               >
                 <PanelLeftOpen size={20} className={`${sidebarOpen ? 'rotate-180' : ''} transition-transform duration-300`} />
               </button>
-            <div className="flex items-center gap-3">
-              <div className="relative group">
+            <div className="flex items-center gap-2 sm:gap-3">
+              <div className="relative group hidden xs:block">
                 <div className="absolute -inset-1 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
-                <div className="relative w-9 h-9 rounded-lg bg-[#161a27] border border-white/10 flex items-center justify-center">
-                  <Sparkles size={20} className="text-indigo-400 fill-indigo-400/20" />
+                <div className="relative w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-[#161a27] border border-white/10 flex items-center justify-center">
+                  <Sparkles size={18} className="text-indigo-400 fill-indigo-400/20" />
                 </div>
               </div>
-              <span className="font-black text-xl tracking-wider uppercase text-transparent bg-clip-text bg-gradient-to-r from-white via-indigo-200 to-gray-500">
+              <span className="font-black text-lg sm:text-xl tracking-wider uppercase text-transparent bg-clip-text bg-gradient-to-r from-white via-indigo-200 to-gray-500 truncate max-w-[120px] sm:max-w-none">
                 Utkarsh
               </span>
             </div>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-4">
              {/* Redesigned New Chat Button */}
              <button
               onClick={handleNewChat}
@@ -119,16 +119,17 @@ export default function App() {
 
             <button
               onClick={logout}
-              className="px-4 py-2 bg-red-600 hover:bg-red-500 rounded-xl text-white font-bold text-sm transition-all shadow-lg shadow-red-600/20 active:scale-95 flex items-center gap-2"
+              className="px-3 sm:px-4 py-2 bg-red-600 hover:bg-red-500 rounded-xl text-white font-bold text-sm transition-all shadow-lg shadow-red-600/20 active:scale-95 flex items-center gap-2"
               title="Logout"
             >
               <LogOut size={16} />
+              <span className="hidden sm:inline">Logout</span>
             </button>
           </div>
         </header>
 
         {/* Chat Workspace */}
-        <main className="flex-1 relative overflow-hidden bg-[radial-gradient(circle_at_center,rgba(79,70,229,0.05)_0%,transparent_70%)]">
+        <main className="flex-1 min-h-0 relative overflow-hidden bg-[radial-gradient(circle_at_center,rgba(79,70,229,0.05)_0%,transparent_70%)]">
           <ChatHero 
             ref={chatHeroRef} 
             onSaveSuccess={handleSaveSuccess} 

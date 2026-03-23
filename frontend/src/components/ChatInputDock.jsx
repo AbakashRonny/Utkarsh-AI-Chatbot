@@ -72,8 +72,8 @@ export default function ChatInputDock({ onSend, disabled }) {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto pb-4 px-2">
-      <div className="relative bg-[#161a27] border border-white/10 rounded-2xl shadow-2xl p-2 focus-within:border-indigo-500/50 focus-within:ring-1 focus-within:ring-indigo-500/20 transition-all duration-300">
+    <div className="w-full max-w-4xl mx-auto pb-2 sm:pb-4 px-2 sm:px-4">
+      <div className="relative bg-[#161a27] border border-white/10 rounded-2xl shadow-2xl p-1.5 sm:p-2 focus-within:border-indigo-500/50 focus-within:ring-1 focus-within:ring-indigo-500/20 transition-all duration-300">
         <textarea
           ref={textareaRef}
           rows={1}
@@ -82,32 +82,32 @@ export default function ChatInputDock({ onSend, disabled }) {
           disabled={disabled}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
-          className="w-full bg-transparent text-gray-100 placeholder:text-gray-600 py-3.5 px-4 resize-none outline-none text-[15px] max-h-[200px] custom-scroll font-medium md:font-semibold"
+          className="w-full bg-transparent text-gray-100 placeholder:text-gray-600 py-3 sm:py-3.5 px-3 sm:px-4 resize-none outline-none text-[14px] sm:text-[15px] max-h-[160px] sm:max-h-[200px] custom-scroll font-medium md:font-semibold"
         />
-        <div className="flex items-center justify-between px-2 pt-1 border-t border-white/5 mt-1">
-          <div className="flex gap-1">
-             <button className="p-2.5 hover:bg-white/5 rounded-xl text-gray-500 hover:text-gray-300 transition-colors" title="Attach transmission">
-              <Paperclip size={18} />
+        <div className="flex items-center justify-between px-1.5 sm:px-2 pt-1 border-t border-white/5 mt-1">
+          <div className="flex gap-0.5 sm:gap-1">
+             <button className="p-2 sm:p-2.5 hover:bg-white/5 rounded-xl text-gray-500 hover:text-gray-300 transition-colors" title="Attach transmission">
+              <Paperclip size={16} className="sm:size-[18px]" />
             </button>
             <button
               onClick={toggleListening}
-              className={`p-2.5 rounded-xl transition-all ${
+              className={`p-2 sm:p-2.5 rounded-xl transition-all ${
                 isListening ? "bg-red-500/20 text-red-400 animate-pulse border border-red-500/10" : "hover:bg-white/5 text-gray-500"
               }`}
             >
-              {isListening ? <MicOff size={18} /> : <Mic size={18} />}
+              {isListening ? <MicOff size={16} className="sm:size-[18px]" /> : <Mic size={16} className="sm:size-[18px]" />}
             </button>
           </div>
           <button
             onClick={handleSend}
             disabled={!input.trim() || disabled}
-            className={`flex items-center justify-center w-11 h-11 rounded-xl transition-all duration-300 ${
+            className={`flex items-center justify-center w-9 h-9 sm:w-11 sm:h-11 rounded-xl transition-all duration-300 ${
               input.trim() && !disabled 
                 ? "bg-indigo-600 text-white shadow-lg shadow-indigo-600/30 active:scale-95" 
                 : "bg-white/5 text-gray-600"
             }`}
           >
-            <Send size={18} className={input.trim() ? "translate-x-0.5" : ""} />
+            <Send size={16} className={`sm:size-[18px] ${input.trim() ? "translate-x-0.5" : ""}`} />
           </button>
         </div>
       </div>

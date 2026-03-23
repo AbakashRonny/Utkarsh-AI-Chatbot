@@ -162,45 +162,45 @@ const ChatHero = forwardRef(({ onSaveSuccess }, ref) => {
     <div className="flex flex-col h-full w-full max-w-5xl mx-auto overflow-hidden relative">
       <div 
         ref={chatContainerRef}
-        className={`flex-1 ${messages.length === 0 ? 'overflow-y-hidden' : 'overflow-y-auto'} custom-scroll px-4 md:px-12 py-10 lg:py-16 scroll-smooth`}
+        className={`flex-1 ${messages.length === 0 ? 'overflow-y-hidden' : 'overflow-y-auto'} custom-scroll px-3 sm:px-4 md:px-12 py-6 sm:py-10 lg:py-16 scroll-smooth`}
       >
         <AnimatePresence>
           {messages.length === 0 ? (
             <motion.div 
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="flex flex-col items-center justify-center min-h-[60vh] text-center"
+              className="flex flex-col items-center justify-center min-h-[70%] sm:min-h-[60vh] text-center pt-8 sm:pt-0"
             >
               {/* Unique Animated Logo */}
-              <div className="relative mb-8 group">
+              <div className="relative mb-6 sm:mb-8 group">
                 <motion.div 
                   animate={{ scale: [1, 1.1, 1], opacity: [0.2, 0.4, 0.2] }}
                   transition={{ duration: 4, repeat: Infinity }}
                   className="absolute -inset-4 bg-indigo-500 rounded-full blur-2xl"
                 />
-                <div className="relative w-24 h-24 bg-[#161a27] rounded-3xl border border-white/10 flex items-center justify-center shadow-2xl shadow-indigo-600/20 group-hover:border-indigo-500/50 transition-colors duration-500">
-                  <Sparkles size={44} className="text-indigo-500 fill-indigo-500/10 group-hover:scale-110 transition-transform duration-500" strokeWidth={1.5} />
+                <div className="relative w-20 h-20 sm:w-24 sm:h-24 bg-[#161a27] rounded-3xl border border-white/10 flex items-center justify-center shadow-2xl shadow-indigo-600/20 group-hover:border-indigo-500/50 transition-colors duration-500">
+                  <Sparkles size={36} className="text-indigo-500 sm:size-[44px] fill-indigo-500/10 group-hover:scale-110 transition-transform duration-500" strokeWidth={1.5} />
                 </div>
               </div>
 
-              <h1 className="text-4xl md:text-6xl font-black mb-4 tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-white via-indigo-200 to-gray-600">
+              <h1 className="text-4xl md:text-6xl font-black mb-3 sm:mb-4 tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-white via-indigo-200 to-gray-600">
                 Utkarsh
               </h1>
-              <p className="text-gray-500 font-bold tracking-[0.3em] uppercase text-[10px] md:text-xs mb-12">
+              <p className="text-gray-500 font-bold tracking-[0.2em] sm:tracking-[0.3em] uppercase text-[9px] sm:text-xs mb-8 sm:mb-12 px-4 leading-relaxed">
                 Unified Intelligence Interface
               </p>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-3xl px-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 w-full max-w-3xl px-4">
                 {suggestions.map((item, i) => (
                   <motion.button
                     whileHover={{ scale: 1.02, backgroundColor: "rgba(255,255,255,0.05)" }}
                     whileTap={{ scale: 0.98 }}
                     key={i}
                     onClick={() => dispatch(setText(item.text))}
-                    className="flex items-center gap-4 text-left bg-white/5 border border-white/10 rounded-2xl p-5 text-sm text-gray-400 transition-all hover:border-indigo-500/30 group"
+                    className="flex items-center gap-3 sm:gap-4 text-left bg-white/5 border border-white/10 rounded-2xl p-4 sm:p-5 text-sm text-gray-400 transition-all hover:border-indigo-500/30 group"
                   >
-                    <div className="w-10 h-10 rounded-xl bg-[#0f111a] flex items-center justify-center group-hover:bg-indigo-600/10 transition-colors">{item.icon}</div>
-                    <span className="font-semibold">{item.text}</span>
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#0f111a] flex items-center justify-center group-hover:bg-indigo-600/10 shrink-0 transition-colors">{item.icon}</div>
+                    <span className="font-semibold line-clamp-1">{item.text}</span>
                   </motion.button>
                 ))}
               </div>
