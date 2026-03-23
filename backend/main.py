@@ -14,13 +14,38 @@ app = FastAPI()
 # Initialize database
 init_db()
 
+
+# ==============================
+# CORS Configuration
+# NOTE: allow_origins=["*"] is INVALID when allow_credentials=True.
+# The browser blocks credentialed requests (with Authorization headers)
+# if the server responds with a wildcard origin. Exact origins are required.
+# ==============================
+_BASE_ORIGINS = [
+    # ✅ CONFIRMED production frontend URL (Vercel Dashboard verified)
+    "https://utkarsh-sage-ten.vercel.app",
+    # Per-deployment preview URL (also allow this)
+    "https://utkarsh-7vkk1ch7o-abakashdas06-6704s-projects.vercel.app",
+    # Local development
+    "http://localhost:5173",
+    "http://localhost:3000",
+    "http://127.0.0.1:5173",
+    "http://127.0.0.1:3000",
+]
+
+# Allow adding extra origins via environment variable on Render
+# e.g. FRONTEND_URL=https://your-custom-domain.com
+_extra = os.getenv("FRONTEND_URL", "")
+_ALLOWED_ORIGINS = _BASE_ORIGINS + [u.strip() for u in _extra.split(",") if u.strip()]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=_ALLOWED_ORIGINS,
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+    allow_headers=["Content-Type", "Authorization", "Accept", "Origin", "X-Requested-With"],
 )
+
 
 
 @app.get("/")
