@@ -119,11 +119,11 @@ def get_me(current_user: User = Depends(get_current_user)):
 
 @app.post("/chat")
 async def chat(request: ChatRequest):
-
-    # Add system instruction
-    system_message = {
-        "role": "system",
-        "content": """
+    try:
+        # Add system instruction
+        system_message = {
+            "role": "system",
+            "content": """
 You are a highly professional AI assistant.
 
 Always format responses using clean Markdown.
@@ -137,26 +137,40 @@ Rules:
 - Keep explanations structured and easy to read
 - Avoid long unbroken paragraphs
 """
-    }
+        }
 
-    # Convert Pydantic objects to dict format
-    formatted_messages = [system_message] + [
-        {"role": msg.role, "content": msg.content}
-        for msg in request.messages
-    ]
+        # Convert Pydantic objects to dict format
+        formatted_messages = [system_message] + [
+            {"role": msg.role, "content": msg.content}
+            for msg in request.messages
+        ]
 
-    # Langfuse callback handler for prompt tracking
-    from langfuse.callback import CallbackHandler
-    langfuse_handler = CallbackHandler(
-        secret_key=os.getenv("LANGFUSE_SECRET_KEY"),
-        public_key=os.getenv("LANGFUSE_PUBLIC_KEY"),
-        host=os.getenv("LANGFUSE_BASE_URL", "https://cloud.langfuse.com")
-    )
+        # Langfuse callback handler for prompt tracking
+        callbacks = []
+        lf_secret = os.getenv("LANGFUSE_SECRET_KEY")
+        lf_public = os.getenv("LANGFUSE_PUBLIC_KEY")
+        
+        if lf_secret and lf_public:
+            from langfuse.callback import CallbackHandler
+            langfuse_handler = CallbackHandler(
+                secret_key=lf_secret,
+                public_key=lf_public,
+                host=os.getenv("LANGFUSE_BASE_URL", "https://cloud.langfuse.com")
+            )
+            callbacks.append(langfuse_handler)
 
-    # Pass full conversation to model
-    response = llm.invoke(formatted_messages, config={"callbacks": [langfuse_handler]})
+        # Pass full conversation to model
+        response = llm.invoke(formatted_messages, config={"callbacks": callbacks})
 
-    return {"reply": response.content}
+        return {"reply": response.content}
+        
+    except Exception as e:
+        print(f"❌ CHAT ERROR: {str(e)}")
+        # Return a more descriptive error to the frontend
+        raise HTTPException(
+            status_code=500,
+            detail=f"Intelligence Provider Error: {str(e)}. Please check your API keys and model configuration."
+        )
 
 
 @app.post("/api/save-conversation")
